@@ -9,6 +9,7 @@
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+    z-index: 10;
 
     .logo-item{
         font-size: 20px;
@@ -81,6 +82,12 @@
     padding-bottom: 0;
     width: 100%;
 
+    a{
+        text-decoration: none;
+        color: $primary-color;
+        
+    }
+
     &.active {
         display: flex;
 
@@ -95,6 +102,7 @@
             padding: .5rem 1rem;
             transition: .3s ease-in;
             font-weight: 600;
+            color: $primary-color;
 
             &:hover{
                 background-color: $secondary-color;
@@ -117,6 +125,7 @@
         flex-direction: row;
         justify-content: space-around;
         align-items: center;
+        padding-top: 0;
 
         .controller-item {
             display: flex;
@@ -125,6 +134,7 @@
             transition: .2s ease-in-out;
             font-weight: 600;
             font-size: 18px;
+            color: $primary-color;
             
 
             &:hover{

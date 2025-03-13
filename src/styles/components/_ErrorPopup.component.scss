@@ -1,0 +1,96 @@
+@import "../mixins/responsive.mixin";
+
+.error-popup {
+    position: fixed; 
+    overflow: hidden;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 200px;
+    background-color: $ancent-color-2;
+    color: $primary-color;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 4px $secondary-color;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    animation: top-to-bottom 0.3s ease-out forwards, bottom-to-top 0.5s ease-out forwards 2.5s;
+    z-index: 20;
+
+    .close-btn {
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 18px;
+        cursor: pointer;
+    }
+
+
+    @include respond-to('mobile-large') {
+        top: 100px;
+        right: 20px;
+        transform: translateX(0);
+        min-width: 200px;
+        animation: slide-in 0.3s ease-out forwards, fade-out 0.5s ease-out forwards 2.5s;
+    }
+
+
+    @include respond-to('tablet') {
+        top: 80px;
+    }
+
+    @include respond-to('laptop') {
+       
+    }
+
+    @include respond-to('desktop') {
+
+    }
+}
+
+
+
+@keyframes top-to-bottom {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-10px); 
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+@keyframes bottom-to-top {
+    from {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-10px);
+    }
+}
+
+@keyframes slide-in {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fade-out {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}

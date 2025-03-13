@@ -1,0 +1,128 @@
+@import "../mixins/responsive.mixin";
+
+.user-form{
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    background-color: $primary-color;
+    z-index: -1;
+
+    .sign-up, .sign-in{
+        width: 80%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        background-color: $secondary-color;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        padding: 2rem 0;
+        border-radius: 1rem;
+        box-shadow: 2px 2px 4px $ancent-color-1;
+
+        h2{
+            font-size: 26px;
+            color: $ancent-color-1;
+            margin-bottom: .5rem;
+        }
+
+        form{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            width: 100%;
+            padding: 1rem;
+        }
+
+        input {
+            width: 90%;
+            padding: 0.5rem;
+            border: 2px solid $ancent-color-1;
+            border-radius: 0.5rem;
+            background-color: $primary-color;
+            color: $ancent-color-2;
+            outline: none;
+            font-size: 14px;
+            transition: border 0.3s ease-in-out;
+        
+            &:focus {
+                border-color: $ancent-color-2;
+                box-shadow: 0 0 8px rgba($ancent-color-2, 0.6);
+            }
+        
+            &::placeholder {
+                color: rgba($ancent-color-2, 0.6);
+            }
+        }
+        
+        button {
+            width: 90%;
+            padding: 0.5rem;
+            background-color: $ancent-color-2;
+            color: $primary-color;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            transition: background-color 0.3s ease-in-out;
+        
+            &:hover {
+                background-color: darken($ancent-color-2, 10%);
+                transform: scale(1.05);
+            }
+        
+            &:active {
+                transform: scale(0.98);
+            }
+        }
+
+        .sign-in-prompt {
+            margin-top: 1rem;
+            font-size: 16px;
+            color: $ancent-color-1;
+        
+            .sign-in-link {
+                color: $ancent-color-2;
+                font-weight: 600;
+                text-decoration: none;
+                margin-left: 0.3rem;
+                cursor: pointer;
+                transition: color 0.3s ease-in-out;
+        
+                &:hover {
+                    color: $primary-color;
+                    text-decoration: underline;
+                }
+            }
+        }
+        
+
+
+        @include respond-to('mobile-large') {
+            width: 70%;
+            margin-top: 2rem;
+        }
+    
+    
+        @include respond-to('tablet') {
+            width: 50%;
+            margin-top: 1rem;
+        }
+    
+        @include respond-to('laptop') {
+            width: 30%;
+    
+        }
+    
+        @include respond-to('desktop') {
+            width: 20%;
+        }
+    }
+
+
+    
+    
+}

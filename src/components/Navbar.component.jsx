@@ -1,18 +1,29 @@
-import { useState } from "react";
-import useNavbarState from "../hooks/useNavbarState.hooks";
+import { Outlet, useNavigate } from "react-router";
 
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import useNavbarState from "../hooks/useNavbarState.hooks";
+import { useAppContext } from "../contexts/App.context";
 
 import NavBarItem from "./NavbarItems.components";
 
 const Navbar = (props) => {
 
     const {isMenuOpen, menuItems,toggleMenu} = useNavbarState();
-    const [isLogin, setIsLogin] = useState(false);
+    const {isLogin, handleLogoutUser} = useAppContext();
+    const navigate = useNavigate();
+
+    const handleSignOut = (menu) => {
+        if(menu.name === "SignOut"){
+            handleLogoutUser();
+            navigate(menu.path)
+        }
+    }
 
     return(
-        <nav>
+        <>
+            <nav>
             <div className="nav-bar">
             <div className="logo">
                 <div className="logo-item">BusyBuy</div>
@@ -25,7 +36,8 @@ const Navbar = (props) => {
 
                 {isLogin ?
                 menuItems.filter((item) => item.showIfLogin || item.name === "Home")
-                .map((item, index) => <NavBarItem data={item} key={index}/>)
+                .map((item, index) => <NavBarItem data={item} key={index} 
+                onClick={item.name === "SignOut" ? () =>handleSignOut(item) : null} />)
                 :
                 menuItems.filter((item) => !item.showIfLogin || item.name === "Home")
                 .map((item, index) => <NavBarItem data={item} key={index}/>)
@@ -34,6 +46,8 @@ const Navbar = (props) => {
             </div>
         </div>
         </nav>
+        <Outlet />
+        </>
     )
 }
 

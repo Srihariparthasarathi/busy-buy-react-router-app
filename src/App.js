@@ -1,13 +1,15 @@
-import Navbar from "./components/Navbar.component";
-
-
+import Router from "./routes/Routes";
+import AppProvider from "./contexts/App.context";
 
 function App() {
+
   return (
-    <div className="App">
-      <Navbar />
-    </div>
+    <AppProvider>
+      <Router />
+    </AppProvider>
   );
 }
+
+
 
 export default App;
