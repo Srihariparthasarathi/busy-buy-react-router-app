@@ -46,7 +46,9 @@ const Navbar = (props) => {
             </div>
         </div>
         </nav>
-        <Outlet />
+        <div className="main">
+            <Outlet />
+        </div>
         </>
     )
 }

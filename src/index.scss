@@ -7,4 +7,14 @@
   font-family: $font-family;
 }
 
+.App{
+  background-color: $primary-color;
+  min-height: 100vh;
+}
+
+.main{
+  margin-top: 1rem;
+  background-color: $primary-color;
+}
+
 @import "./styles/components";
