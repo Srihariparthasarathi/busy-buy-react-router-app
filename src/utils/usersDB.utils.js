@@ -1,8 +1,11 @@
 import db from "../config/firestoreDB.config";
+import DataDB from "./dataDB.utils";
 
-import { collection, addDoc, query, where, getDocs, documentId , doc, setDoc, getDoc, updateDoc} from "firebase/firestore";
+import { collection, addDoc, query, where, getDocs , doc, getDoc, updateDoc, onSnapshot} from "firebase/firestore";
 
-const USER_COLLECTION_NAME = "users"
+const USER_COLLECTION_NAME = "users";
+
+const dataDB = new DataDB();
 
 export default class UserDBUtils {
     async addUser(username, email, password){
@@ -78,6 +81,20 @@ export default class UserDBUtils {
         }
     }
 
+    async decreaseShoppingItemsInCart(userId, cartItemId) {
+        try {
+            const user = await this.getUserData(userId);
+            if (!user) throw new Error("User not found");
+    
+            const cart = this.#decreaseItemInCart(user, cartItemId);
+          
+            await updateDoc(doc(db, USER_COLLECTION_NAME, userId), { cartItems: cart });
+    
+        } catch (err) {
+            console.error("Error adding item to cart:", err.message);
+        }
+    }
+
     async checkCartItemExists(userId, cartItemId){
         try {
             const user = await this.getUserData(userId);
@@ -121,6 +138,40 @@ export default class UserDBUtils {
         }
     }
 
+    async listenToUserCart(userId, callback) {
+        const userDocRef = doc(db, "users", userId);
+    
+        return onSnapshot(userDocRef, async (userSnap) => {
+            if (!userSnap.exists()) {
+                console.error("User not found");
+                callback([]);
+                return;
+            }
+    
+            const userData = userSnap.data();
+            const cartItems = userData.cartItems || [];
+    
+            if (cartItems.length === 0) {
+                callback([]);
+                return;
+            }
+    
+            // Extract all item IDs from the cart
+            const itemIds = this.#getShoppingItemsId(cartItems)
+    
+            // Fetch all item details in one query
+            const itemsData = await dataDB.getAllCartItemsById(itemIds)
+    
+            // Merge item details with quantity
+            const mergedCart = cartItems.map((cartItem) => {
+                const itemDetail = itemsData.find((item) => item.id === cartItem.itemId);
+                return itemDetail ? { ...itemDetail, quantity: cartItem.quantity } : null;
+            }).filter(Boolean); 
+    
+            callback(mergedCart);
+        });
+    }
+
     #getCartItemIndex(cart, cartItemId){
         return cart.findIndex((item) => item.itemId === cartItemId);
     }
@@ -148,6 +199,24 @@ export default class UserDBUtils {
         else cart.splice(itemIndex, 1);
 
         return cart;
+    }
+
+    #decreaseItemInCart(user, cartItemId){
+        let cart = user.cartItems || [];
+        const itemIndex = this.#getCartItemIndex(cart, cartItemId)
+
+        if (itemIndex === -1) return cart;
+        if (cart[itemIndex].quantity > 1) {
+            cart[itemIndex].quantity -= 1; 
+        } else {
+            cart.splice(itemIndex, 1); 
+        }
+
+        return cart;
+    }
+
+    #getShoppingItemsId(cartItems){
+        return cartItems.map((item) => item.itemId);
     }
 
 }

@@ -1,0 +1,58 @@
+@import "../mixins/responsive.mixin";
+
+.cart-page{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .card{
+        display: none;
+        height: 20vh;
+        background-color: greenyellow;
+    }
+
+    .main-container{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .cart-items-container{
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: center;
+        margin-top: 1rem;        
+    }
+
+    @include respond-to('mobile-large') {
+        
+        .cart-items-container{
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 1rem;        
+        }
+    }
+
+
+    @include respond-to('tablet') {
+        .cart-items-container{
+            padding: 1rem;
+            gap: 2rem;      
+        }
+    }
+
+    @include respond-to('laptop') {
+        .cart-items-container{
+            padding: 1rem;
+            gap: 2.5rem;      
+        }
+    }
+
+    @include respond-to('desktop') {
+
+    }
+}
+

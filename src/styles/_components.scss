@@ -1,6 +1,8 @@
 
 @import "./components/Navbar.components";
 @import "./components/ErrorPopup.component";
+@import "./components//CartItem.component";
 
 @import "./pages/SignUp.page";
-@import "./pages//Home.page";
+@import "./pages/Home.page";
+@import "./pages/Cart.page"

@@ -1,0 +1,101 @@
+.cart-item{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: $secondary-color;
+    width: 250px;
+    padding: 1rem;
+    border-radius: .5rem;
+    gap: .5rem;
+    box-shadow: 2px 2px 4px $ancent-color-1;
+    transition: 0.3s ease-in-out;
+
+    &:hover {
+        border-color: $ancent-color-2;
+        box-shadow: 2px 2px 4px $ancent-color-2;
+    }
+    
+
+    img{
+        width: 90%;
+        height: 200px;
+        border-radius: .5rem;
+    }
+
+    .discrption{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+
+    }
+
+    h3{
+        color: $ancent-color-2;
+        font-weight: 400;
+    }
+
+
+    .controller{
+        width: 100px;
+        display: flex;
+        gap: .25rem;
+
+        input{
+            padding: 0.5rem;
+            border: none;
+            width: 40px;
+            font-weight: 600;
+            outline: none;
+        }
+
+        button {
+            width: 60px;
+            padding: 0.5rem;
+            background-color: $ancent-color-2;
+            color: $primary-color;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            transition: background-color 0.3s ease-in-out;
+        
+            &:hover {
+                background-color: darken($ancent-color-2, 10%);
+                transform: scale(1.05);
+            }
+        
+            &:active {
+                transform: scale(0.98);
+            }
+        }
+    }
+
+    button {
+        width: 90%;
+        padding: 0.5rem;
+        background-color: $ancent-color-2;
+        color: $primary-color;
+        border: none;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 16px;
+        transition: background-color 0.3s ease-in-out;
+    
+        &:hover {
+            background-color: darken($ancent-color-2, 10%);
+            transform: scale(1.05);
+        }
+    
+        &:active {
+            transform: scale(0.98);
+        }
+    }
+
+    
+
+
+}

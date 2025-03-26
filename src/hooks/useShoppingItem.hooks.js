@@ -27,8 +27,7 @@ const useShoppingItmestate = (itemDetail) =>{
         }
     }
     async function removeItemFromCart(ShoppingItemId){
-        await userDBUtils.removeItmeFromCart(userId, ShoppingItemId);
-        setIsItemInCart(false);
+        await userDBUtils.removeItmeFromCart(userId, ShoppingItemId)
     }
 
     return {
