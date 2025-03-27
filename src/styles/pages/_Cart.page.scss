@@ -1,58 +1,83 @@
 @import "../mixins/responsive.mixin";
 
-.cart-page{
+.cart-page {
     display: flex;
     flex-direction: column;
     width: 100%;
+    position: relative; 
 
-    .card{
-        display: none;
+    .card {
         height: 20vh;
-        background-color: greenyellow;
+        display: flex;
+        justify-content: center;
     }
 
-    .main-container{
+    .cart-items-container {
         display: flex;
         flex-direction: column;
         width: 100%;
         padding: 1rem;
     }
 
-    .cart-items-container{
+    .cart-items-container {
         display: flex;
         flex-direction: column;
         gap: 1.5rem;
         align-items: center;
-        margin-top: 1rem;        
+        margin-top: 1rem;
     }
 
     @include respond-to('mobile-large') {
-        
-        .cart-items-container{
+        .cart-items-container {
             flex-direction: row;
             flex-wrap: wrap;
             gap: 1.5rem;
-            margin-top: 1rem;        
+            margin-top: 1rem;
         }
     }
 
-
     @include respond-to('tablet') {
-        .cart-items-container{
+        display: flex;
+        flex-direction: row;
+
+        .card {
+            position: fixed;
+            top: 65px; 
+            left: 0;
+            width: 25%; 
+            height: calc(100vh - 65px);
+            z-index: 8;
+
+            display: flex;
+            align-items: center;
+   
+        }
+
+        .cart-items-container {
+            margin-left: 25%; 
+            width: 75%;
+            overflow-y: auto;
             padding: 1rem;
-            gap: 2rem;      
         }
     }
 
     @include respond-to('laptop') {
-        .cart-items-container{
-            padding: 1rem;
-            gap: 2.5rem;      
+        .card {
+            width: 20%;
+        }
+        .cart-items-container {
+            margin-left: 20%;
+            width: 80%;
         }
     }
 
     @include respond-to('desktop') {
-
+        .card {
+            width: 18%;
+        }
+        .cart-items-container {
+            margin-left: 18%;
+            width: 82%;
+        }
     }
 }
-

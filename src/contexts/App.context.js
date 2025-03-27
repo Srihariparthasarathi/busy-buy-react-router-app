@@ -7,8 +7,8 @@ const useAppContext = () => useContext(appContext);
 
 const AppProvider = ({children}) =>{
 
-    const [isLogin, setIsLogin] = useState(false);
-    const [userId, setUserId] = useState(null);
+    const [isLogin, setIsLogin] = useState(true);
+    const [userId, setUserId] = useState("kHcoPizPo12haRO18kGJ");
     const [error, setError] = useState("");
 
     const navigate = useNavigate();

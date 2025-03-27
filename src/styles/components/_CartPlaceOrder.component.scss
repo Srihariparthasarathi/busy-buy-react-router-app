@@ -1,0 +1,57 @@
+@import "../mixins/responsive.mixin";
+
+.place-order-container{
+    background-color: $ancent-color-2;
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .25rem;
+    box-shadow: 2px 2px 4px $ancent-color-1;
+
+    button {
+        width: 80%;
+        padding: 0.5rem;
+        background-color: $ancent-color-1;
+        color: $ancent-color-2;
+        border: none;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 16px;
+        transition: background-color 0.3s ease-in-out;
+    
+        &:hover {
+            background-color: darken($ancent-color-1, 10%);
+            transform: scale(1.05);
+        }
+    
+        &:active {
+            transform: scale(0.98);
+        }
+    }
+
+    @include respond-to('mobile-large') {
+
+    }
+
+    @include respond-to('tablet') {
+        padding: 2rem 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        box-shadow: 2px 2px 4px $ancent-color-1;
+    }
+
+    @include respond-to('laptop') {
+
+    }
+
+    @include respond-to('desktop') {
+
+    }
+}
+
+
