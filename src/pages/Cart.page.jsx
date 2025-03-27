@@ -1,12 +1,14 @@
 
 import CartItem from "../components/CartItme.component";
 import CartPlaceOrder from "../components/CartPlaceOrder.component";
+import Loading from "../components/Loading.component";
 
 import useCartState from "../hooks/useCartState.hooks";
 
 const Cart = () =>{
- const {cartItems, cartTotalPrice, handlePurchase} = useCartState();
-    
+ const {cartItems, cartTotalPrice, isLoding, handlePurchase} = useCartState();
+
+    if(isLoding) return <Loading />
     return(
         <div className="cart-page">
             <div className="card">

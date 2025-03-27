@@ -1,5 +1,7 @@
 import useHomeState from "../hooks/useHomeState.hooks";
+
 import ShoppingItem from "../components/Item.Component";
+import Loading from "../components/Loading.component";
 
 const Home = () => {
     const { isLogin, items, isLoding, searchRef, handleSearchChange } = useHomeState();
@@ -17,11 +19,8 @@ const Home = () => {
                     />
                 </div>
 
-                {isLoding ? (
-                    <div className="loading-spinner">
-                        <h2>Loading products...</h2>
-                    </div>
-                ) : (
+                {isLoding ? <Loading />
+                 : (
                     <section className="items-container">
                         {items.length > 0 ? (
                             items.map(item => (

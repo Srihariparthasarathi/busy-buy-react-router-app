@@ -1,4 +1,4 @@
-import { collection, addDoc } from "firebase/firestore"; 
+import { collection, addDoc, query, where, getDocs } from "firebase/firestore"; 
 
 import db from "../config/firestoreDB.config";
 
@@ -10,8 +10,19 @@ const userDB = new UserDBUtils();
 
 export default class OrdersDBUtils {
 
-    async getPurchaseItemByUserId(){
+    async getPurchaseItemByUserId(userId){
+        try{
+            const data = [];
+            const q = query(collection(db, ORDERS_COLLECTION_NAME), where("userId", "==", userId));
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+                data.push({id: doc.id, ...doc.data()})
+            });
+            return data;
 
+        }catch(error){
+            console.error("Error getting purchase items:", error.message);
+        }
     }
 
     async addPurchaseItemsByUserId(userId, purchaseData) {

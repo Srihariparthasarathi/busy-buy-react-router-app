@@ -1,0 +1,78 @@
+.order-item {
+    // background-color: $ancent-color-2;
+    max-width: 800px; 
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    color: $ancent-color-1;
+
+
+    h2{
+        text-align: center;
+        color: $secondary-color;
+    }
+
+    table {
+        width: 100%;
+        table-layout: fixed;
+
+        th, td {
+            padding: 0.5rem;
+            text-align: left;
+            white-space: nowrap; 
+            overflow: hidden;
+            text-overflow: ellipsis; 
+            max-width: 150px; 
+        }
+
+        th {
+            border-bottom: 2px solid $secondary-color;
+            color: $secondary-color;
+            background-color: $ancent-color-1;
+        }
+
+        td{
+            border-bottom: 1px solid gray;
+            padding-bottom: 0px;
+        }
+
+        td:hover {
+            overflow: visible; 
+            white-space: normal;
+            
+        }
+
+        tbody tr{
+           transition: .3s ease-in ;
+        }
+
+        tbody tr:hover{
+            background-color: lighten($secondary-color, 20%);
+            cursor: pointer;
+            color: $ancent-color-2;
+        }
+
+        tfoot {
+            td {
+                font-weight: bold;
+                padding: 0.5rem;
+                border-top: 2px solid $secondary-color;
+            }
+        
+            td:hover{
+                color: $ancent-color-1;
+            }
+        }
+    }
+
+    @include respond-to("mobile-large") {
+        overflow-x: auto;
+        display: block;
+        white-space: nowrap;
+    }
+}
+

@@ -3,7 +3,10 @@
 @import "./components/ErrorPopup.component";
 @import "./components/CartItem.component";
 @import "./components/CartPlaceOrder.component";
+@import "./components/OrderItems.components";
+@import "./components/loading.component";
 
 @import "./pages/SignUp.page";
 @import "./pages/Home.page";
-@import "./pages/Cart.page"
+@import "./pages/Cart.page";
+@import "./pages/order.page";

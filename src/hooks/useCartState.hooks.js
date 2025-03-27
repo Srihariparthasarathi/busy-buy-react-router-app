@@ -11,24 +11,28 @@ const useCartState = () => {
     const {userId} = useAppContext();
     const [cartItems, setCartItems] = useState([]);
     const [cartTotalPrice, setCartTotalPrice] = useState(0);
-
+    const[isLoding, setIsLoading] = useState(false);
     
     useEffect(() => {
-        if (userId) {
-            let unsubscribe;
-            const fetchCartItems = async () => {
+
+        if(!userId) return;
+
+        setIsLoading(true)
+        let unsubscribe;
+        const fetchCartItems = async () => {
+            try {
                 unsubscribe = await userDBUtils.listenToUserCart(userId, (cartItems) => {
                     setCartItems(cartItems);
+                    setIsLoading(false); 
                 });
-            };
-
-            fetchCartItems();
-
-            return () => {
-                if (unsubscribe) unsubscribe(); 
-            };
-        }
-    }, [userId]);
+            } catch (error) {
+                console.error("Error fetching cart items:", error);
+                setIsLoading(false); 
+            }
+        };
+    
+        fetchCartItems();
+    }, []);
 
 
     useEffect(()=>{
@@ -63,7 +67,7 @@ const useCartState = () => {
     }
 
     
-    return {cartItems, cartTotalPrice, handlePurchase};
+    return {cartItems, cartTotalPrice, isLoding, handlePurchase};
 }
 
 export default useCartState;
