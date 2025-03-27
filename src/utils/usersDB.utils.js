@@ -172,6 +172,15 @@ export default class UserDBUtils {
         });
     }
 
+    async clearCartItemByUserId(userId){
+        try{
+            await updateDoc(doc(db, USER_COLLECTION_NAME, userId), { cartItems: [] });
+        }catch(err){
+            console.error("Error removing item from cart:", err.message)
+
+        }
+    }
+
     #getCartItemIndex(cart, cartItemId){
         return cart.findIndex((item) => item.itemId === cartItemId);
     }
