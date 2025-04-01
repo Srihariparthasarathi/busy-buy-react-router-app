@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 
-import useCartItem from "../hooks/useCartItem.hooks";
+import useCartItem from "./useCartItem.hooks";
 
 
 const CartItem = ({data}) => {

@@ -1,5 +1,5 @@
-import useSignUpState from "../hooks/useSignUp.hooks";
-import ErrorPopup from "../components/ErrorPopup.component";
+import useSignUpState from "./useSignUp.hooks";
+import ErrorPopup from "../../components/ErrorPopup/ErrorPopup.component";
 import { Link } from "react-router";
 
 const SignUp = () =>{

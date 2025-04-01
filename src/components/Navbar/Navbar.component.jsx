@@ -3,10 +3,10 @@ import { Outlet, useNavigate } from "react-router";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import useNavbarState from "../hooks/useNavbarState.hooks";
-import { useAppContext } from "../contexts/App.context";
+import useNavbarState from "./useNavbarState.hooks";
+import { useAppContext } from "../../contexts/App.context";
 
-import NavBarItem from "./NavbarItems.components";
+import NavBarItem from "../NavbarItme/NavbarItems.components";
 
 const Navbar = (props) => {
 

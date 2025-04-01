@@ -1,11 +1,11 @@
 
 import { useState, useEffect } from "react";
-import OrdersDBUtils from "../utils/ordersItemDB.utils";
-import {useAppContext} from "../contexts/App.context";
+import OrdersDB from "../../model/ordersItemDB.model";
+import {useAppContext} from "../../contexts/App.context";
 
 
 
-const ordersDB = new OrdersDBUtils();
+const ordersDB = new OrdersDB();
 
 
 const useOrderState = () =>{

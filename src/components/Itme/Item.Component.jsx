@@ -1,4 +1,4 @@
-import useShoppingItmestate from "../hooks/useShoppingItem.hooks";
+import useShoppingItmestate from "./useShoppingItem.hooks";
 
 const ShoppingItem = (props) =>{
     const {itemDetail, isLogin} = props;

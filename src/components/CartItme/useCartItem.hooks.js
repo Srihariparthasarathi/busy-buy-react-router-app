@@ -1,7 +1,7 @@
 
-import { useAppContext } from "../contexts/App.context";
+import { useAppContext } from "../../contexts/App.context";
 
-import UserDBUtils from "../utils/usersDB.utils";
+import UserDBUtils from "../../model/usersDB.model";
 
 const userDB = new UserDBUtils();
 

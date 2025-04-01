@@ -1,8 +1,8 @@
 
-import useOrderState from "../hooks/useOrderState.hooks";
+import useOrderState from "./useOrderState.hooks";
 
-import OrderItem from "../components/OrderItem.component";
-import Loading from "../components/Loading.component";
+import OrderItem from "../../components/OrderIem/OrderItem.component";
+import Loading from "../../components/Loading/Loading.component";
 
 const Order = () =>{
 

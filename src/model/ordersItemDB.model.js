@@ -2,7 +2,7 @@ import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
 
 import db from "../config/firestoreDB.config";
 
-import UserDBUtils from "./usersDB.utils";
+import UserDBUtils from "./usersDB.model";
 
 const ORDERS_COLLECTION_NAME = "orders";
 

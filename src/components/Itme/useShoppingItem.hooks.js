@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useAppContext } from "../contexts/App.context";
-import UserDBUtils from "../utils/usersDB.utils";
+import { useAppContext } from "../../contexts/App.context";
+import UserDBUtils from "../../model/usersDB.model";
 
 const userDBUtils = new UserDBUtils();
 

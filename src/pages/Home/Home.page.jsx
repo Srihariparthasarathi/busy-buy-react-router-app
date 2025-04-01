@@ -1,7 +1,7 @@
-import useHomeState from "../hooks/useHomeState.hooks";
+import useHomeState from "./useHomeState.hooks";
 
-import ShoppingItem from "../components/Item.Component";
-import Loading from "../components/Loading.component";
+import ShoppingItem from "../../components/Itme/Item.Component";
+import Loading from "../../components/Loading/Loading.component";
 
 const Home = () => {
     const { isLogin, items, isLoding, searchRef, handleSearchChange } = useHomeState();

@@ -1,5 +1,5 @@
 import db from "../config/firestoreDB.config";
-import DataDB from "./dataDB.utils";
+import DataDB from "./dataDB.model";
 
 import { collection, addDoc, query, where, getDocs , doc, getDoc, updateDoc, onSnapshot} from "firebase/firestore";
 

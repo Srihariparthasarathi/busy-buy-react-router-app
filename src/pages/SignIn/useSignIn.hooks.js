@@ -1,8 +1,8 @@
 import { useRef} from "react";
-import { useAppContext } from "../contexts/App.context";
+import { useAppContext } from "../../contexts/App.context";
 
-import { checkEmail, checkPassword } from "../utils/users.util";
-import UserDBUtils from "../utils/usersDB.utils";
+import { checkEmail, checkPassword } from "../../utils/users.util";
+import UserDBUtils from "../../model/usersDB.model";
 
 
 const userDBUtils = new UserDBUtils();
