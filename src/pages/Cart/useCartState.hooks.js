@@ -1,47 +1,30 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
-import { useAppContext } from "../../contexts/App.context";
-import UserDBUtils from "../../model/usersDB.model";
+
 import OrdersDBUtils from "../../model/ordersItemDB.model";
+import { appSelector } from "../../redux/slices/appSlice";
+import { cartSelector, getCartRealTimeData } from "../../redux/slices/cartSlice";
+import { lodingSelector } from "../../redux/slices/lodingSlice";
 
-const userDBUtils = new UserDBUtils();
 const ordersDBUtils = new OrdersDBUtils();
 
 const useCartState = () => {
-    const {userId} = useAppContext();
-    const [cartItems, setCartItems] = useState([]);
-    const [cartTotalPrice, setCartTotalPrice] = useState(0);
-    const[isLoding, setIsLoading] = useState(false);
-    
+    const {userId} = useSelector(appSelector);
+    const {cartItems, cartTotalPrice} = useSelector(cartSelector);
+    const {isLoding} = useSelector(lodingSelector)
+
+    const dispatcher = useDispatch();
+
     useEffect(() => {
 
         if(!userId) return;
 
-        setIsLoading(true)
-        let unsubscribe;
-        const fetchCartItems = async () => {
-            try {
-                unsubscribe = await userDBUtils.listenToUserCart(userId, (cartItems) => {
-                    setCartItems(cartItems);
-                    setIsLoading(false); 
-                });
-            } catch (error) {
-                console.error("Error fetching cart items:", error);
-                setIsLoading(false); 
-            }
-        };
-    
-        fetchCartItems();
+        dispatcher(getCartRealTimeData(userId));
+        
     }, []);
 
 
-    useEffect(()=>{
-        const totalPrice = cartItems.reduce((acc, cur) =>{
-            return acc + (cur.quantity * cur.price)
-        }, 0)
-        setCartTotalPrice(totalPrice)
-    }, [cartItems])
-    
     
     const handlePurchase = async () =>{
 

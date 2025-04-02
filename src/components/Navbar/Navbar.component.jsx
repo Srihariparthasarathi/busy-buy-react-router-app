@@ -1,22 +1,27 @@
 import { Outlet, useNavigate } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
+import { appSelector, signOutUser} from "../../redux/slices/appSlice";
 
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import useNavbarState from "./useNavbarState.hooks";
-import { useAppContext } from "../../contexts/App.context";
+
 
 import NavBarItem from "../NavbarItme/NavbarItems.components";
+
 
 const Navbar = (props) => {
 
     const {isMenuOpen, menuItems,toggleMenu} = useNavbarState();
-    const {isLogin, handleLogoutUser} = useAppContext();
+    const {isLogin} = useSelector(appSelector);
     const navigate = useNavigate();
+
+    const dispatcher = useDispatch();
 
     const handleSignOut = (menu) => {
         if(menu.name === "SignOut"){
-            handleLogoutUser();
+            dispatcher(signOutUser());
             navigate(menu.path)
         }
     }

@@ -1,34 +1,28 @@
 
-import { useState, useEffect } from "react";
-import OrdersDB from "../../model/ordersItemDB.model";
-import {useAppContext} from "../../contexts/App.context";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
+import { appSelector } from "../../redux/slices/appSlice";
+import { orderSelector, getOrderDataAsync } from "../../redux/slices/orderSlice";
+import { lodingSelector } from "../../redux/slices/lodingSlice";
 
 
 
-const ordersDB = new OrdersDB();
 
 
 const useOrderState = () =>{
-    const [orders, setOrders] = useState([]);
-    const {userId} = useAppContext();
-    const[isLoding, setIsLoading] = useState(false);
+    const {orders} = useSelector(orderSelector);
+    const {userId} = useSelector(appSelector);
+    const {isLoding} = useSelector(lodingSelector);
+
+    const dispatcher = useDispatch();
+    
 
     useEffect(() =>{
-        getOrderDetails()
+        dispatcher(getOrderDataAsync(userId))
     }, [])
 
-    const getOrderDetails = async() =>{
-        try{
-            setIsLoading(true)
-            const orders = await ordersDB.getPurchaseItemByUserId(userId)
-            setOrders([...orders]);
-            setIsLoading(false)
-
-        }catch(err){
-            console.log(err.message)
-        }
-        
-    }
+   
 
     return {orders, isLoding}
 }

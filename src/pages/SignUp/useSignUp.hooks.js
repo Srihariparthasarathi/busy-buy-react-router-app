@@ -1,16 +1,28 @@
-import { useRef, useState } from "react";
-import { useAppContext } from "../../contexts/App.context";
+import { useRef, useEffect } from "react";
+import { useNavigate } from "react-router";
+
+import { useDispatch, useSelector } from "react-redux";
+
+import { signUpUserAsync, setError, appSelector } from "../../redux/slices/appSlice";
 
 import { checkEmail, checkPassword, checkUsername } from "../../utils/users.util";
-import UserDBUtils from "../../model/usersDB.model";
 
-const userDBUtils = new UserDBUtils();
+
+
+
 const useSignUpState = () =>{
     const emailRef = useRef();
     const passwordRef = useRef();
     const usernameRef = useRef();
 
-    const {error, handleError, setError, handleLoginUser} = useAppContext();
+    const navigate = useNavigate()
+    const dispatcher = useDispatch();
+    const {error} = useSelector(appSelector);
+    
+
+    useEffect(() => {
+        if (error) clearInput();
+    }, [error]);
 
     const handleSignIn = async (e) =>{
         e.preventDefault();
@@ -23,16 +35,13 @@ const useSignUpState = () =>{
         const isValidPassword = checkPassword(password);
         const isValidUsername = checkUsername(username);
 
-        if(isValidEmail && isValidPassword && isValidUsername) {
-            const {errorMessage, documentId} = await userDBUtils.addUser(username, email, password);
-
-            if(errorMessage){
-                handleError(errorMessage);
-                clearInput();
-                return;
+        if(isValidEmail && isValidPassword && isValidUsername) {  
+            try {
+                const result = await dispatcher(signUpUserAsync({ username, email, password })).unwrap();
+                if (result.documentId) navigate("/"); 
+            } catch (error) {
+                console.error("Sign-up failed:", error);
             }
-
-            if(documentId)  return handleLoginUser(documentId);   
             
         };
 
@@ -45,7 +54,7 @@ const useSignUpState = () =>{
 
     const handleEmailError = () =>{
         emailRef.current.value = "";
-        handleError("Please enter a valid email address.");
+        dispatcher(setError("Please enter a valid email address."))
         emailRef.current.focus();
         usernameRef.current.value = "";
         passwordRef.current.value = "";
@@ -54,14 +63,14 @@ const useSignUpState = () =>{
 
     const handlePasswordError = () =>{
         passwordRef.current.value = "";
-        handleError("Password must be 8+ characters with uppercase, lowercase, number, and special character.");
+        dispatcher(setError("Password must be 8+ characters with uppercase, lowercase, number, and special character."));
         passwordRef.current.focus();
         return;
     }
 
     const handleUsernameError = () =>{
         usernameRef.current.value = "";
-        handleError("Please enter a valid username.");
+        dispatcher(setError("Please enter a valid username."));
         usernameRef.current.focus();
         passwordRef.current.value = "";
         return;

@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
-import { useAppContext } from "../../contexts/App.context";
+
 import UserDBUtils from "../../model/usersDB.model";
+import { useSelector } from "react-redux";
+import { appSelector } from "../../redux/slices/appSlice";
 
 const userDBUtils = new UserDBUtils();
 
 
 const useShoppingItmestate = (itemDetail) =>{
-    const {userId} = useAppContext();
+    const {userId} = useSelector(appSelector);
     const [isItemInCart, setIsItemInCart] = useState(false);
 
     useEffect(()=>{

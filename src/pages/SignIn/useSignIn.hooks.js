@@ -1,17 +1,21 @@
 import { useRef} from "react";
-import { useAppContext } from "../../contexts/App.context";
+import { useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+
+import { signInUserAsync, setError, appSelector } from "../../redux/slices/appSlice";
 
 import { checkEmail, checkPassword } from "../../utils/users.util";
-import UserDBUtils from "../../model/usersDB.model";
 
-
-const userDBUtils = new UserDBUtils();
 
 const useSignInState = () =>{
     const emailRef = useRef();
     const passwordRef = useRef();
 
-    const {error, handleError, setError, handleLoginUser} = useAppContext();
+    const navigate = useNavigate();
+
+    const dispatcher = useDispatch();
+
+    const {error} = useSelector(appSelector);
 
     const handleSignIn = async (e) =>{
         e.preventDefault();
@@ -23,15 +27,13 @@ const useSignInState = () =>{
         const isValidPassword = checkPassword(password);
 
         if(isValidEmail && isValidPassword) {
-            const {isUser, documentId} = await userDBUtils.checkUser(email, password);
-            
-            if(!isUser) {
-                handleError( "Invalid email or password" );
-                clearInput();
-                return;
-            }
+           try{
+                const result = await dispatcher(signInUserAsync({ email, password })).unwrap();
+                if(result.documentId) navigate("/");
+                clearInput()
+           }catch(err){
 
-            if(isUser) return handleLoginUser(documentId);
+           }
             
         };
 
@@ -43,7 +45,7 @@ const useSignInState = () =>{
 
     const handleEmailError = () =>{
         emailRef.current.value = "";
-        handleError("Please enter a valid email address.");
+        dispatcher(setError("Please enter a valid email address."))
         emailRef.current.focus();
         passwordRef.current.value = "";
         return;
@@ -51,7 +53,7 @@ const useSignInState = () =>{
 
     const handlePasswordError = () =>{
         passwordRef.current.value = "";
-        handleError("Password must be 8+ characters with uppercase, lowercase, number, and special character.");
+        dispatcher(setError("Password must be 8+ characters with uppercase, lowercase, number, and special character."));
         passwordRef.current.focus();
         return;
     }

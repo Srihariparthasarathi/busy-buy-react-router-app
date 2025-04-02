@@ -1,42 +1,39 @@
 import { useEffect, useRef, useState } from "react";
-import { useAppContext } from "../../contexts/App.context";
+import { useDispatch, useSelector } from "react-redux";
+
+import { appSelector } from "../../redux/slices/appSlice";
+
 import DataDB from "../../model/dataDB.model";
+import { getShoppingDataAsync, getShoppingDataByUserSearchAsync, homeSelector } from "../../redux/slices/homeSlice";
+import { lodingSelector } from "../../redux/slices/lodingSlice";
+
 
 const dataDB = new DataDB();
 
 
+
 const useHomeState = () =>{
-    const [items, setItems] = useState([]);
-    const {isLogin} = useAppContext();
-    const[isLoding, setIsLoading] = useState(false);
+    const {isLogin} = useSelector(appSelector);
+    const {items} = useSelector(homeSelector);
+    const {isLoding} = useSelector(lodingSelector)
+
+    const dispatcher = useDispatch()
+
+
     const searchRef = useRef();
     const debounceTimeout = useRef(null);
 
     useEffect(()=>{
-        getShoppingData();
+        dispatcher(getShoppingDataAsync())
+
     }, []);
 
     async function handleSearchChange() {
         clearTimeout(debounceTimeout.current); 
         debounceTimeout.current = setTimeout(async () => {
-            setIsLoading(true);
-            const allData = await dataDB.getShoppingItems();
             const searchText = searchRef.current.value.trim().toLowerCase();
-
-            const filteredData = allData.filter(item =>
-                item.name.toLowerCase().includes(searchText)
-            );
-
-            setItems(filteredData);
-            setIsLoading(false);
+            dispatcher(getShoppingDataByUserSearchAsync(searchText))
         }, 300); 
-    }
-
-    async function getShoppingData() {
-        setIsLoading(true);
-        const data = await dataDB.getShoppingItems();
-        setItems(data);
-        setIsLoading(false)
     }
 
     return {
