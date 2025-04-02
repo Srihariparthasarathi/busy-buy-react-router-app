@@ -1,5 +1,4 @@
 
-import { useAppContext } from "../../contexts/App.context";
 import { useSelector } from "react-redux";
 
 import { appSelector } from "../../redux/slices/appSlice";
